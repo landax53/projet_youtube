@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.0/css/all.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp">
+    
+    <title>Youtube</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+            color: #000;
+        }
+        body {
+            cursor: default;
+            min-height: 100vh;
+            display: flex;
+            /* border: 5px dotted rgb(255, 150, 30); */
+            min-width: 350px;
+        }
+
+        .material-icons {
+        font-family: 'Material Icons';
+        }
+
+     
+
+        .material-icons-outlined {
+        font-family: 'Material Icons Outlined';
+        }
+
+        .material-icons-sharp {
+        font-family: 'Material Icons Sharp';
+        }
+
+
+        .material-icons,
+        .material-icons-outlined,
+        .material-icons-sharp {
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;  /* Preferred icon size */
+        display: inline-block;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+        /* Support for all WebKit browsers. */
+        -webkit-font-smoothing: antialiased;
+        /* Support for Safari and Chrome. */
+        text-rendering: optimizeLegibility;
+
+        /* Support for Firefox. */
+        -moz-osx-font-smoothing: grayscale;
+
+        /* Support for IE. */
+        font-feature-settings: 'liga';
+        }
+
+        .material-icons {
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;  /* Preferred icon size */
+        display: inline-block;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+        /* Support for all WebKit browsers. */
+        -webkit-font-smoothing: antialiased;
+        /* Support for Safari and Chrome. */
+        text-rendering: optimizeLegibility;
+
+        /* Support for Firefox. */
+        -moz-osx-font-smoothing: grayscale;
+
+        /* Support for IE. */
+        font-feature-settings: 'liga';
+        }
+
+        #topBar .material-icons-outlined {
+            color :rgb(3,3,3);
+        }
+
+        #topBar {
+            position: fixed;
+            height: 70px;
+            /* border: 3px solid rgb(132, 41, 145); */
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        #mainPage {
+            margin-top: 70px;
+            /* border: 1px solid red; */
+            display: grid;
+            min-height: 100%;
+            width:100%;
+            grid-template-columns: 240px 1fr;
+            grid-template-areas: 
+            "nav accueil";  
+        }
+
+        #navigation-open {
+            grid-area: 'nav';
+            /* border: 1px solid black; */
+            position: relative;
+            padding-left: 20px;
+        }
+
+        #navigation-closed {
+            grid-area: 'nav';
+            display: none;
+        }
+
+        #accueil {
+            grid-area: 'accueil';
+            position: relative;
+            /* border: 1px solid black; */
+            overflow: auto;
+            display: grid;
+            grid-template-rows: 30px 1fr;
+            grid-template-columns: 1fr;
+            grid-template-areas: 
+            "themes"
+            "discover";
+            background: rgb(249,249,249);
+        }
+
+        #menuLogo {
+            /* border: 1px solid black; */
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            padding : 0 20px;
+            gap: 20px;
+        }
+
+        .youtubeLogo {
+            height:70px;
+            /* border: 1px solid black; */
+        }
+
+       .fa-bars {
+            /* border: 1px solid black; */
+            font-size: 1.5rem;  
+            color: grey;            
+        }
+
+        li {
+            list-style-type: none;
+            padding: 10px 0; 
+            
+        }
+
+        #topBar i {
+            color: #656565;
+        }
+
+        .list {
+            /* border: 1px black solid; */
+            display: flex;
+            align-items: center;
+        }
+
+        .iText{
+            margin-left: 15px;
+            font-weight: normal;
+            font-size: .9rem;
+            /* border: 1px black solid; */
+        }
+        
+
+        #searchMenu {
+            display: flex;
+            width: 500px;
+            justify-content: center;
+            align-items: center;
+            /* border: 1px solid black; */
+        }
+
+        #searchBar {
+            border: 1px solid rgb(185, 185, 185);
+            border-radius: 2px;
+            display: flex;
+        }
+
+        #searchText {
+            width: 300px;
+            height: 30px;
+            outline: none;
+            border: none;
+            padding-left: 10px;
+        }
+
+        #searchTool {
+            background: rgb(248,248,248);
+            width:80px;
+            text-align: center;
+            align-self: center;
+            height: 100%;
+            font-size: 1.2rem;
+            padding:4px;
+        }
+
+        #micro {
+            margin: 0 15px;
+            background: rgb(248,248,248);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            border-radius: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+
+        #topBarMenu {
+            display: flex;
+            /* border: 1px solid black; */
+            justify-content: flex-end;
+            align-items: center;
+            padding-right: 20px;
+        }
+
+        .topBarMenuIcon {
+            padding: 15px;
+        }
+
+        #logo_vincent {
+            height: 35px;
+            border-radius: 20px;
+        }
+
+        #themesBar {
+            grid-area: 'themes';
+            /* border: 1px solid black; */
+            position: fixed;
+            white-space: nowrap;
+            height: 50px;
+            overflow: hidden ;
+            background: rgb(255, 255, 255);
+            padding:14px 0px;
+        }
+
+        .theme { 
+            margin: 7px;
+            padding: 5px 10px;
+            background-color: rgb(242,242,242);
+            border-radius: 15px;
+            border: 1px solid rgb(204, 204, 204);           
+        }
+
+        #discover {
+            grid-area: 'discover';
+            /* border: 1px rgb(69, 151, 49) solid; */
+            display: flex;
+            /* grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 350px ; */
+            gap: 15px;
+            padding: 15px;
+            margin-top: 40px;
+            max-width: 95%;
+            margin: 40px auto;
+            flex-wrap: wrap;
+        }
+
+        .containerVideo {
+            /* border: 2px black solid; */
+            height: 300px;
+            width: 360px;
+            margin: 0 auto;
+        }
+
+        video {
+            object-fit: cover;
+            max-height: 65%;
+            width:100%;   
+        }
+
+        .details {
+            display: flex;
+        }
+
+        .avatar-image {
+            width:40px;
+            border-radius: 20px;
+            padding-top: 10px;
+        }
+
+        .TextInfo {
+            height:100%;
+            padding: 10px 0 0 10px;
+        }
+
+        .video-title-link {
+            text-decoration: none;
+            color: rgb(3,3,3);
+        }
+
+        .firstSubInfoLine {
+            display: flex;
+            height: 30px;
+            align-items: center ;
+        }
+
+        .chaine a {
+            text-decoration: none;
+            color: rgb(96,96,96);
+        }
+
+        .badge {
+            pointer-events: none;
+            display: flex;
+            color:rgb(96,96,96);
+        }
+
+        .badge span {
+            font-size: 1rem;
+            margin-left: 5px;
+        }
+
+        .vuetemps {
+            color: rgb(96,96,96)
+        }
+
+        @media (max-width: 1380px) {
+            #mainPage {
+                margin-top: 70px;
+                /* border: 1px solid red; */
+                display: grid;
+                min-height: 100%;
+                width:100%;
+                grid-template-columns: 70px 1fr;
+                grid-template-areas: 
+                "nav accueil";  
+            }
+
+            #navigation-open {
+                grid-area: 'nav';
+                /* border: 1px solid black; */
+                position: relative;
+                padding-left: 20px;
+                display: none;
+            }
+            #navigation-closed {
+                display: block;
+                width: 70px;
+                /* border: 1px solid black; */
+            }
+
+            #navigation-closed li {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                /* border: 1px solid black; */
+                padding: 15px 0;
+                
+            }
+
+            .iText {
+                margin:0;
+                font-size: 10px;
+                padding-top: 5px;
+            }
+
+            #discover {
+            grid-template: auto / repeat(3, 1fr);
+
+            }
+        }  
+
+        @media (max-width: 1000px) {
+            #discover {
+            grid-template: auto / repeat(2, 1fr);
+            }          
+        }  
+        
+        @media (max-width: 800px) {
+            #mainPage {
+                display: grid;
+                grid-template-columns: 1fr;
+                width:100%
+            }
+
+            #navigation-closed {
+                display: none;
+            }           
+        } 
+
+        @media (max-width: 600px) {
+            #discover {
+                display: grid;
+                grid-template-columns: 1fr;
+                width: 70%;
+                justify-self: center;
+            }
+
+            #navigation-closed {
+                display: none;
+            }           
+        } 
+        
+
+    </style>
+
+</head>
+
+ <!-- BODY -->
+<body>
+        <div id="topBar">
+            <div id="menuLogo">
+                <span class="material-icons-outlined">menu</span><img src="logo-youtube.jpg" alt="youtube" class="youtubeLogo">
+            </div>
+            <div id="searchMenu">
+                <div id="searchBar">
+                    <input type="text" id="searchText" placeholder="Rechercher">
+                    <div id="searchTool"><span class="material-icons">search</span></div>
+                </div>
+                <div id="micro"><span class="material-icons-outlined">mic</span></div>
+            </div>
+            <div id="topBarMenu">
+                <span class="topBarMenuIcon"><span class="material-icons-outlined">video_call</span></span>
+                <span class="topBarMenuIcon"><span class="material-icons-outlined">apps</span></span>
+                <span class="topBarMenuIcon"><span class="material-icons-outlined">notifications</span></span>
+                <span class="topBarMenuIcon"><image src="https://yt3.ggpht.com/yti/APfAmoHUQk3PAzCD4IXpJGhioobQqwNDctfz9z9sSuwylQ=s88-c-k-c0x00ffffff-no-rj-mo" alt="logo_vincent" id="logo_vincent"></image></span>
+            </div>
+        </div>
+        <div id="mainPage">
+            <div id="navigation-open">              
+                    <ul class="myUl">
+                        <li class="list"><span class="material-icons-outlined">home</span><span class="iText">Accueil</span></li>
+                        <li class="list"><span class="material-icons-outlined">explore</span><span class="iText">Explorer</span></li>
+                        <li class="list"><span class="material-icons-outlined">subscriptions</span><span class="iText">Abonnements</span></li>
+                    </ul>
+                    <ul class="myUl">
+                        <li class="list"><span class="material-icons-outlined">video_library</span><span class="iText">Bibliothèque</span></li>
+                        <li class="list"><span class="material-icons-outlined">history</span><span class="iText">Historique</span></li>
+                        <li class="list"><span class="material-icons-outlined">smart_display</span><span class="iText">Vos vidéos</span></li>
+                        <li class="list"><span class="material-icons-outlined">theaters</span><span class="iText">Vos films</span></li>
+                        <li class="list"><span class="material-icons-outlined">schedule</span><span class="iText">A regarder plus tard</span></li>
+                        <li class="list"><span class="material-icons-outlined">expand_more</span><span class="iText">Plus</span></li>
+                    </ul>   
+            </div>
+            <div id="navigation-closed">              
+                <ul class="myUl">
+                    <li class="list"><div class="material-icons-outlined">home</div><div class="iText">Accueil</div></li>
+                    <li class="list"><div class="material-icons-outlined">explore</div><div class="iText">Explorer</div></li>
+                    <li class="list"><div class="material-icons-outlined">subscriptions</div><div class="iText">Abonnements</div></li>
+                    <li class="list"><div class="material-icons-outlined">video_library</div><div class="iText">Bibliothèque</div></li>
+                </ul>  
+            </div>
+            <div id="accueil">          
+                    <div id="themesBar">
+                        <span class="theme">Tous</span>
+                        <span class="theme">En direct</span>
+                        <span class="theme">Mix</span>
+                        <span class="theme">Musique</span>
+                        <span class="theme">Vélos tout terrain</span>
+                        <span class="theme">Histoire</span>
+                        <span class="theme">Course de cyclisme sur route</span>
+                        <span class="theme">JavaScript</span>
+                        <span class="theme">Conversations</span>
+                        <span class="theme">Randonnée</span>
+                        <span class="theme">Surf</span>
+                        <span class="theme">Tout-terrain</span>
+                        <span class="theme">Course</span>
+                        <span class="theme">Supercar</span>
+                        <span class="theme">Grand public</span>
+                        <span class="theme">Manchester United FC</span>
+                    </div>
+                    
+                    <div id="discover">
+                        <div class="containerVideo">
+                            <video src="exemple.mp4" width=320  height=240 controls poster="https://i.ytimg.com/vi/2H602-zG62w/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLA0FoCaM25N2Q_Gg0xPgMvLLiJJhg">
+                                Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
+                                Une version est disponible en téléchargement sous <a href="URL">adresse du lien </a> . 
+                            </video>
+                           
+                            <div class="details">
+                                <a href="https://www.youtube.com/user/grafikarttv" class="avatar-link"><img src="https://yt3.ggpht.com/ytc/AKedOLQTUKCd7fvyRbIUni52wocYLSD0BdItSCTbjru2=s68-c-k-c0x00ffffff-no-rj" alt="grafikart" class="avatar-image"></a>
+                                <div class="TextInfo">
+                                    <h3><a class="video-title-link" href="https://www.youtube.com/watch?v=2H602-zG62w&ab_channel=Grafikart.fr">Tutoriel CSS : display: grid;</a></h3>
+                                    <div id="subInfo">
+                                        <div class="firstSubInfoLine">
+                                            <div class="chaine"><a href="https://www.youtube.com/user/grafikarttv">Grafikart.fr</a></div>
+                                            <div class="badge" title="Validé" aria-label="Validé" width="24" focusable="false"><span class="material-icons-sharp">check_circle</span></div>
+                                        </div>
+                                        <div class="vuetemps">
+                                            889 k vues · il y a 1 an
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="containerVideo">
+                            <video src="exemple.mp4" width=320  height=240 controls poster="https://i.ytimg.com/vi/SdrKlPFq2W4/hqdefault.jpg?s…AFwAcABBg==&rs=AOn4CLBdjCZTd3icNiskkyvrhTQ3ckAx5Q">
+                                Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
+                                Une version est disponible en téléchargement sous <a href="URL">adresse du lien </a> . 
+                            </video>
+                            <div class="details">
+                                <a href="https://www.youtube.com/user/grafikarttv" class="avatar-link"><img src="https://yt3.ggpht.com/ytc/AKedOLQTUKCd7fvyRbIUni52wocYLSD0BdItSCTbjru2=s68-c-k-c0x00ffffff-no-rj" alt="grafikart" class="avatar-image"></a>
+                                <div class="TextInfo">
+                                    <h3><a class="video-title-link" href="https://www.youtube.com/watch?v=2H602-zG62w&ab_channel=Grafikart.fr">Tutoriel CSS : display: grid;</a></h3>
+                                    <div id="subInfo">
+                                        <div class="firstSubInfoLine">
+                                            <div class="chaine"><a href="https://www.youtube.com/user/grafikarttv">Grafikart.fr</a></div>
+                                            <div class="badge" aria-label="Validé" width="24" focusable="false"><span class="material-icons-sharp">check_circle</span></div>
+                                        </div>
+                                        <div class="vuetemps">
+                                            889 k vues · il y a 1 an
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="containerVideo">
+                            <video src="exemple.mp4" width=320  height=240 controls poster="https://i.ytimg.com/vi/iI8OLUDIMzs/hqdefault.jpg?s…AFwAcABBg==&rs=AOn4CLAZmYGnDwqTAl75qFczPPQITt31hw">
+                                Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
+                                Une version est disponible en téléchargement sous <a href="URL">adresse du lien </a> . 
+                            </video>
+                            <div class="details">
+                                <a href="https://www.youtube.com/user/grafikarttv" class="avatar-link"><img src="https://yt3.ggpht.com/ytc/AKedOLQTUKCd7fvyRbIUni52wocYLSD0BdItSCTbjru2=s68-c-k-c0x00ffffff-no-rj" alt="grafikart" class="avatar-image"></a>
+                                <div class="TextInfo">
+                                    <h3><a class="video-title-link" href="https://www.youtube.com/watch?v=2H602-zG62w&ab_channel=Grafikart.fr">Tutoriel CSS : display: grid;</a></h3>
+                                    <div id="subInfo">
+                                        <div class="firstSubInfoLine">
+                                            <div class="chaine"><a href="https://www.youtube.com/user/grafikarttv">Grafikart.fr</a></div>
+                                            <div class="badge" aria-label="Validé" width="24" focusable="false"><span class="material-icons-sharp">check_circle</span></div>
+                                        </div>
+                                        <div class="vuetemps">
+                                            889 k vues · il y a 1 an
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="containerVideo">
+                            <video src="exemple.mp4" width=320  height=240 controls poster="https://i.ytimg.com/vi/WDnzcWOD4xU/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLBNpL4gqHovCypJhO69TzH14mzpcg">
+                                Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
+                                Une version est disponible en téléchargement sous <a href="URL">adresse du lien </a> . 
+                            </video>
+                            <div class="details">
+                                <a href="https://www.youtube.com/user/grafikarttv" class="avatar-link"><img src="https://yt3.ggpht.com/ytc/AKedOLQTUKCd7fvyRbIUni52wocYLSD0BdItSCTbjru2=s68-c-k-c0x00ffffff-no-rj" alt="grafikart" class="avatar-image"></a>
+                                <div class="TextInfo">
+                                    <h3><a class="video-title-link" href="https://www.youtube.com/watch?v=2H602-zG62w&ab_channel=Grafikart.fr">Tutoriel CSS : display: grid;</a></h3>
+                                    <div id="subInfo">
+                                        <div class="firstSubInfoLine">
+                                            <div class="chaine"><a href="https://www.youtube.com/user/grafikarttv">Grafikart.fr</a></div>
+                                            <div class="badge" aria-label="Validé" width="24" focusable="false"><span class="material-icons-sharp">check_circle</span></div>
+                                        </div>
+                                        <div class="vuetemps">
+                                            889 k vues · il y a 1 an
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="containerVideo">
+                            <video src="exemple.mp4" width=320  height=240 controls poster="https://i.ytimg.com/vi/e78ggCQCqxI/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLAQPY7YFmdAmElS9FTRE72Fkrh4Zw">
+                                Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
+                                Une version est disponible en téléchargement sous <a href="URL">adresse du lien </a> . 
+                            </video>
+                            <div class="details">
+                                <a href="https://www.youtube.com/user/grafikarttv" class="avatar-link"><img src="https://yt3.ggpht.com/ytc/AKedOLQTUKCd7fvyRbIUni52wocYLSD0BdItSCTbjru2=s68-c-k-c0x00ffffff-no-rj" alt="grafikart" class="avatar-image"></a>
+                                <div class="TextInfo">
+                                    <h3><a class="video-title-link" href="https://www.youtube.com/watch?v=2H602-zG62w&ab_channel=Grafikart.fr">Tutoriel CSS : display: grid;</a></h3>
+                                    <div id="subInfo">
+                                        <div class="firstSubInfoLine">
+                                            <div class="chaine"><a href="https://www.youtube.com/user/grafikarttv">Grafikart.fr</a></div>
+                                            <div class="badge" aria-label="Validé" width="24" focusable="false"><span class="material-icons-sharp">check_circle</span></div>
+                                        </div>
+                                        <div class="vuetemps">
+                                            889 k vues · il y a 1 an
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="containerVideo">
+                            <video src="exemple.mp4" width=320  height=240 controls poster="https://i.ytimg.com/vi/E0M-ipyga-U/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLA2iNIWsPH_irTS4DzHKcYcsokizQ">
+                                Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
+                                Une version est disponible en téléchargement sous <a href="URL">adresse du lien </a> . 
+                            </video>
+                            <div class="details">
+                                <a href="https://www.youtube.com/user/grafikarttv" class="avatar-link"><img src="https://yt3.ggpht.com/ytc/AKedOLQTUKCd7fvyRbIUni52wocYLSD0BdItSCTbjru2=s68-c-k-c0x00ffffff-no-rj" alt="grafikart" class="avatar-image"></a>
+                                <div class="TextInfo">
+                                    <h3><a class="video-title-link" href="https://www.youtube.com/watch?v=2H602-zG62w&ab_channel=Grafikart.fr">Tutoriel CSS : display: grid;</a></h3>
+                                    <div id="subInfo">
+                                        <div class="firstSubInfoLine">
+                                            <div class="chaine"><a href="https://www.youtube.com/user/grafikarttv">Grafikart.fr</a></div>
+                                            <div class="badge" aria-label="Validé" width="24" focusable="false"><span class="material-icons-sharp">check_circle</span></div>
+                                        </div>
+                                        <div class="vuetemps">
+                                            889 k vues · il y a 1 an
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- JANCOVICI -->
+                        <div class="containerVideo">
+                            <a href="https://www.youtube.com/watch?v=LCZQZMpfAWE&t=829s&ab_channel=Jean-MarcJancovici">
+                                <video src="exemple.mp4" width=320  height=240 controls poster="https://i.ytimg.com/vi/LCZQZMpfAWE/hqdefault.jpg?s…AFwAcABBg==&rs=AOn4CLAWPqF_5FUO6Z3ItJEmNesmLtnkyQ">
+                                </video>
+                            </a>
+                            <div class="details">
+                                <a href="https://www.youtube.com/channel/UCNovJemYKcdKt7PDdptJZfQ" class="avatar-link"><img src="https://yt3.ggpht.com/ytc/AKedOLSJ-L9XJnaQjjRghjpMRUhaJYo_ECWV06xWwLYoSg=s68-c-k-c0x00ffffff-no-rj" alt="jancovici" class="avatar-image"></a>
+                                <div class="TextInfo">
+                                    <h3><a class="video-title-link" href="https://www.youtube.com/watch?v=2H602-zG62w&ab_channel=Grafikart.fr">Jancovici : Dubusiness sans énergie et sans climat ? ESCP - 06/09/2021</a></h3>
+                                    <div id="subInfo">
+                                        <div class="firstSubInfoLine">
+                                            <div class="chaine"><a href="https://www.youtube.com/channel/UCNovJemYKcdKt7PDdptJZfQ">Jean-Marc Jancovici</a></div>
+                                            <div class="badge" aria-label="Validé" width="24" focusable="false"><span class="material-icons-sharp">check_circle</span></div>
+                                        </div>
+                                        <div class="vuetemps">
+                                            4,5 k vues · il y a 8 heures
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="containerVideo">
+                            <video src="exemple.mp4" width=320  height=240 controls poster="https://i.ytimg.com/vi/2H602-zG62w/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLA0FoCaM25N2Q_Gg0xPgMvLLiJJhg">
+                                Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
+                                Une version est disponible en téléchargement sous <a href="URL">adresse du lien </a> . 
+                            </video>
+                            <div class="details">
+                                <a href="https://www.youtube.com/user/grafikarttv" class="avatar-link"><img src="https://yt3.ggpht.com/ytc/AKedOLQTUKCd7fvyRbIUni52wocYLSD0BdItSCTbjru2=s68-c-k-c0x00ffffff-no-rj" alt="grafikart" class="avatar-image"></a>
+                                <div class="TextInfo">
+                                    <h3><a class="video-title-link" href="https://www.youtube.com/watch?v=2H602-zG62w&ab_channel=Grafikart.fr">Tutoriel CSS : display: grid;</a></h3>
+                                    <div id="subInfo">
+                                        <div class="firstSubInfoLine">
+                                            <div class="chaine"><a href="https://www.youtube.com/user/grafikarttv">Grafikart.fr</a></div>
+                                            <div class="badge" aria-label="Validé" width="24" focusable="false"><span class="material-icons-sharp">check_circle</span></div>
+                                        </div>
+                                        <div class="vuetemps">
+                                            889 k vues · il y a 1 an
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="containerVideo">
+                            <video src="exemple.mp4" width=320  height=240 controls poster="https://i.ytimg.com/vi/2H602-zG62w/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLA0FoCaM25N2Q_Gg0xPgMvLLiJJhg">
+                                Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
+                                Une version est disponible en téléchargement sous <a href="URL">adresse du lien </a> . 
+                            </video>
+                            <div class="details">
+                                <a href="https://www.youtube.com/user/grafikarttv" class="avatar-link"><img src="https://yt3.ggpht.com/ytc/AKedOLQTUKCd7fvyRbIUni52wocYLSD0BdItSCTbjru2=s68-c-k-c0x00ffffff-no-rj" alt="grafikart" class="avatar-image"></a>
+                                <div class="TextInfo">
+                                    <h3><a class="video-title-link" href="https://www.youtube.com/watch?v=2H602-zG62w&ab_channel=Grafikart.fr">Tutoriel CSS : display: grid;</a></h3>
+                                    <div id="subInfo">
+                                        <div class="firstSubInfoLine">
+                                            <div class="chaine"><a href="https://www.youtube.com/user/grafikarttv">Grafikart.fr</a></div>
+                                            <div class="badge" aria-label="Validé" width="24" focusable="false"><span class="material-icons-sharp">check_circle</span></div>
+                                        </div>
+                                        <div class="vuetemps">
+                                            889 k vues · il y a 1 an
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="containerVideo">
+                            <video src="exemple.mp4" width=320  height=240 controls poster="https://i.ytimg.com/vi/2H602-zG62w/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLA0FoCaM25N2Q_Gg0xPgMvLLiJJhg">
+                                Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
+                                Une version est disponible en téléchargement sous <a href="URL">adresse du lien </a> . 
+                            </video>
+                            <div class="details">
+                                <a href="https://www.youtube.com/user/grafikarttv" class="avatar-link"><img src="https://yt3.ggpht.com/ytc/AKedOLQTUKCd7fvyRbIUni52wocYLSD0BdItSCTbjru2=s68-c-k-c0x00ffffff-no-rj" alt="grafikart" class="avatar-image"></a>
+                                <div class="TextInfo">
+                                    <h3><a class="video-title-link" href="https://www.youtube.com/watch?v=2H602-zG62w&ab_channel=Grafikart.fr">Tutoriel CSS : display: grid;</a></h3>
+                                    <div id="subInfo">
+                                        <div class="firstSubInfoLine">
+                                            <div class="chaine"><a href="https://www.youtube.com/user/grafikarttv">Grafikart.fr</a></div>
+                                            <div class="badge" aria-label="Validé" width="24" focusable="false"><span class="material-icons-sharp">check_circle</span></div>
+                                        </div>
+                                        <div class="vuetemps">
+                                            889 k vues · il y a 1 an
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="containerVideo">
+                            <video src="exemple.mp4" width=320  height=240 controls poster="https://i.ytimg.com/vi/2H602-zG62w/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLA0FoCaM25N2Q_Gg0xPgMvLLiJJhg">
+                                Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
+                                Une version est disponible en téléchargement sous <a href="URL">adresse du lien </a> . 
+                            </video>
+                            <div class="details">
+                                <a href="https://www.youtube.com/user/grafikarttv" class="avatar-link"><img src="https://yt3.ggpht.com/ytc/AKedOLQTUKCd7fvyRbIUni52wocYLSD0BdItSCTbjru2=s68-c-k-c0x00ffffff-no-rj" alt="grafikart" class="avatar-image"></a>
+                                <div class="TextInfo">
+                                    <h3><a class="video-title-link" href="https://www.youtube.com/watch?v=2H602-zG62w&ab_channel=Grafikart.fr">Tutoriel CSS : display: grid;</a></h3>
+                                    <div id="subInfo">
+                                        <div class="firstSubInfoLine">
+                                            <div class="chaine"><a href="https://www.youtube.com/user/grafikarttv">Grafikart.fr</a></div>
+                                            <div class="badge" aria-label="Validé" width="24" focusable="false"><span class="material-icons-sharp">check_circle</span></div>
+                                        </div>
+                                        <div class="vuetemps">
+                                            889 k vues · il y a 1 an
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="containerVideo">
+                            <video src="exemple.mp4" width=320  height=240 controls poster="https://i.ytimg.com/vi/2H602-zG62w/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLA0FoCaM25N2Q_Gg0xPgMvLLiJJhg">
+                                Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
+                                Une version est disponible en téléchargement sous <a href="URL">adresse du lien </a> . 
+                            </video>
+                            <div class="details">
+                                <a href="https://www.youtube.com/user/grafikarttv" class="avatar-link"><img src="https://yt3.ggpht.com/ytc/AKedOLQTUKCd7fvyRbIUni52wocYLSD0BdItSCTbjru2=s68-c-k-c0x00ffffff-no-rj" alt="grafikart" class="avatar-image"></a>
+                                <div class="TextInfo">
+                                    <h3><a class="video-title-link" href="https://www.youtube.com/watch?v=2H602-zG62w&ab_channel=Grafikart.fr">Tutoriel CSS : display: grid;</a></h3>
+                                    <div id="subInfo">
+                                        <div class="firstSubInfoLine">
+                                            <div class="chaine"><a href="https://www.youtube.com/user/grafikarttv">Grafikart.fr</a></div>
+                                            <div class="badge" aria-label="Validé" width="24" focusable="false"><span class="material-icons-sharp">check_circle</span></div>
+                                        </div>
+                                        <div class="vuetemps">
+                                            889 k vues · il y a 1 an
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="containerVideo">
+                            <video src="exemple.mp4" width=320  height=240 controls poster="https://i.ytimg.com/vi/2H602-zG62w/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLA0FoCaM25N2Q_Gg0xPgMvLLiJJhg">
+                                Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
+                                Une version est disponible en téléchargement sous <a href="URL">adresse du lien </a> . 
+                            </video>
+                            <div class="details">
+                                <a href="https://www.youtube.com/user/grafikarttv" class="avatar-link"><img src="https://yt3.ggpht.com/ytc/AKedOLQTUKCd7fvyRbIUni52wocYLSD0BdItSCTbjru2=s68-c-k-c0x00ffffff-no-rj" alt="grafikart" class="avatar-image"></a>
+                                <div class="TextInfo">
+                                    <h3><a class="video-title-link" href="https://www.youtube.com/watch?v=2H602-zG62w&ab_channel=Grafikart.fr">Tutoriel CSS : display: grid;</a></h3>
+                                    <div id="subInfo">
+                                        <div class="firstSubInfoLine">
+                                            <div class="chaine"><a href="https://www.youtube.com/user/grafikarttv">Grafikart.fr</a></div>
+                                            <div class="badge" aria-label="Validé" width="24" focusable="false"><span class="material-icons-sharp">check_circle</span></div>
+                                        </div>
+                                        <div class="vuetemps">
+                                            889 k vues · il y a 1 an
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="containerVideo">
+                            <video src="exemple.mp4" width=320  height=240 controls poster="https://i.ytimg.com/vi/2H602-zG62w/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLA0FoCaM25N2Q_Gg0xPgMvLLiJJhg">
+                                Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
+                                Une version est disponible en téléchargement sous <a href="URL">adresse du lien </a> . 
+                            </video>
+                            <div class="details">
+                                <a href="https://www.youtube.com/user/grafikarttv" class="avatar-link"><img src="https://yt3.ggpht.com/ytc/AKedOLQTUKCd7fvyRbIUni52wocYLSD0BdItSCTbjru2=s68-c-k-c0x00ffffff-no-rj" alt="grafikart" class="avatar-image"></a>
+                                <div class="TextInfo">
+                                    <h3><a class="video-title-link" href="https://www.youtube.com/watch?v=2H602-zG62w&ab_channel=Grafikart.fr">Tutoriel CSS : display: grid;</a></h3>
+                                    <div id="subInfo">
+                                        <div class="firstSubInfoLine">
+                                            <div class="chaine"><a href="https://www.youtube.com/user/grafikarttv">Grafikart.fr</a></div>
+                                            <div class="badge" aria-label="Validé" width="24" focusable="false"><span class="material-icons-sharp">check_circle</span></div>
+                                        </div>
+                                        <div class="vuetemps">
+                                            889 k vues · il y a 1 an
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="containerVideo">
+                            <video src="exemple.mp4" width=320  height=240 controls poster="https://i.ytimg.com/vi/2H602-zG62w/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLA0FoCaM25N2Q_Gg0xPgMvLLiJJhg">
+                                Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
+                                Une version est disponible en téléchargement sous <a href="URL">adresse du lien </a> . 
+                            </video>
+                            <div class="details">
+                                <a href="https://www.youtube.com/user/grafikarttv" class="avatar-link"><img src="https://yt3.ggpht.com/ytc/AKedOLQTUKCd7fvyRbIUni52wocYLSD0BdItSCTbjru2=s68-c-k-c0x00ffffff-no-rj" alt="grafikart" class="avatar-image"></a>
+                                <div class="TextInfo">
+                                    <h3><a class="video-title-link" href="https://www.youtube.com/watch?v=2H602-zG62w&ab_channel=Grafikart.fr">Tutoriel CSS : display: grid;</a></h3>
+                                    <div id="subInfo">
+                                        <div class="firstSubInfoLine">
+                                            <div class="chaine"><a href="https://www.youtube.com/user/grafikarttv">Grafikart.fr</a></div>
+                                            <div class="badge" aria-label="Validé" width="24" focusable="false"><span class="material-icons-sharp">check_circle</span></div>
+                                        </div>
+                                        <div class="vuetemps">
+                                            889 k vues · il y a 1 an
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="containerVideo">
+                            <video src="exemple.mp4" width=320  height=240 controls poster="https://i.ytimg.com/vi/2H602-zG62w/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLA0FoCaM25N2Q_Gg0xPgMvLLiJJhg">
+                                Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
+                                Une version est disponible en téléchargement sous <a href="URL">adresse du lien </a> . 
+                            </video>
+                            <div class="details">
+                                <a href="https://www.youtube.com/user/grafikarttv" class="avatar-link"><img src="https://yt3.ggpht.com/ytc/AKedOLQTUKCd7fvyRbIUni52wocYLSD0BdItSCTbjru2=s68-c-k-c0x00ffffff-no-rj" alt="grafikart" class="avatar-image"></a>
+                                <div class="TextInfo">
+                                    <h3><a class="video-title-link" href="https://www.youtube.com/watch?v=2H602-zG62w&ab_channel=Grafikart.fr">Tutoriel CSS : display: grid;</a></h3>
+                                    <div id="subInfo">
+                                        <div class="firstSubInfoLine">
+                                            <div class="chaine"><a href="https://www.youtube.com/user/grafikarttv">Grafikart.fr</a></div>
+                                            <div class="badge" aria-label="Validé" width="24" focusable="false"><span class="material-icons-sharp">check_circle</span></div>
+                                        </div>
+                                        <div class="vuetemps">
+                                            889 k vues · il y a 1 an
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="containerVideo">
+                            <video src="exemple.mp4" width=320  height=240 controls poster="https://i.ytimg.com/vi/2H602-zG62w/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLA0FoCaM25N2Q_Gg0xPgMvLLiJJhg">
+                                Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
+                                Une version est disponible en téléchargement sous <a href="URL">adresse du lien </a> . 
+                            </video>
+                            <div class="details">
+                                <a href="https://www.youtube.com/user/grafikarttv" class="avatar-link"><img src="https://yt3.ggpht.com/ytc/AKedOLQTUKCd7fvyRbIUni52wocYLSD0BdItSCTbjru2=s68-c-k-c0x00ffffff-no-rj" alt="grafikart" class="avatar-image"></a>
+                                <div class="TextInfo">
+                                    <h3><a class="video-title-link" href="https://www.youtube.com/watch?v=2H602-zG62w&ab_channel=Grafikart.fr">Tutoriel CSS : display: grid;</a></h3>
+                                    <div id="subInfo">
+                                        <div class="firstSubInfoLine">
+                                            <div class="chaine"><a href="https://www.youtube.com/user/grafikarttv">Grafikart.fr</a></div>
+                                            <div class="badge" aria-label="Validé" width="24" focusable="false"><span class="material-icons-sharp">check_circle</span></div>
+                                        </div>
+                                        <div class="vuetemps">
+                                            889 k vues · il y a 1 an
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="containerVideo">
+                            <video src="exemple.mp4" width=320  height=240 controls poster="https://i.ytimg.com/vi/2H602-zG62w/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLA0FoCaM25N2Q_Gg0xPgMvLLiJJhg">
+                                Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
+                                Une version est disponible en téléchargement sous <a href="URL">adresse du lien </a> . 
+                            </video>
+                            <div class="details">
+                                <a href="https://www.youtube.com/user/grafikarttv" class="avatar-link"><img src="https://yt3.ggpht.com/ytc/AKedOLQTUKCd7fvyRbIUni52wocYLSD0BdItSCTbjru2=s68-c-k-c0x00ffffff-no-rj" alt="grafikart" class="avatar-image"></a>
+                                <div class="TextInfo">
+                                    <h3><a class="video-title-link" href="https://www.youtube.com/watch?v=2H602-zG62w&ab_channel=Grafikart.fr">Tutoriel CSS : display: grid;</a></h3>
+                                    <div id="subInfo">
+                                        <div class="firstSubInfoLine">
+                                            <div class="chaine"><a href="https://www.youtube.com/user/grafikarttv">Grafikart.fr</a></div>
+                                            <div class="badge" aria-label="Validé" width="24" focusable="false"><span class="material-icons-sharp">check_circle</span></div>
+                                        </div>
+                                        <div class="vuetemps">
+                                            889 k vues · il y a 1 an
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="containerVideo">
+                            <video src="exemple.mp4" width=320  height=240 controls poster="https://i.ytimg.com/vi/2H602-zG62w/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLA0FoCaM25N2Q_Gg0xPgMvLLiJJhg">
+                                Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
+                                Une version est disponible en téléchargement sous <a href="URL">adresse du lien </a> . 
+                            </video>
+                            <div class="details">
+                                <a href="https://www.youtube.com/user/grafikarttv" class="avatar-link"><img src="https://yt3.ggpht.com/ytc/AKedOLQTUKCd7fvyRbIUni52wocYLSD0BdItSCTbjru2=s68-c-k-c0x00ffffff-no-rj" alt="grafikart" class="avatar-image"></a>
+                                <div class="TextInfo">
+                                    <h3><a class="video-title-link" href="https://www.youtube.com/watch?v=2H602-zG62w&ab_channel=Grafikart.fr">Tutoriel CSS : display: grid;</a></h3>
+                                    <div id="subInfo">
+                                        <div class="firstSubInfoLine">
+                                            <div class="chaine"><a href="https://www.youtube.com/user/grafikarttv">Grafikart.fr</a></div>
+                                            <div class="badge" aria-label="Validé" width="24" focusable="false"><span class="material-icons-sharp">check_circle</span></div>
+                                        </div>
+                                        <div class="vuetemps">
+                                            889 k vues · il y a 1 an
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="containerVideo">
+                            <video src="exemple.mp4" width=320  height=240 controls poster="https://i.ytimg.com/vi/2H602-zG62w/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLA0FoCaM25N2Q_Gg0xPgMvLLiJJhg">
+                                Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
+                                Une version est disponible en téléchargement sous <a href="URL">adresse du lien </a> . 
+                            </video>
+                            <div class="details">
+                                <a href="https://www.youtube.com/user/grafikarttv" class="avatar-link"><img src="https://yt3.ggpht.com/ytc/AKedOLQTUKCd7fvyRbIUni52wocYLSD0BdItSCTbjru2=s68-c-k-c0x00ffffff-no-rj" alt="grafikart" class="avatar-image"></a>
+                                <div class="TextInfo">
+                                    <h3><a class="video-title-link" href="https://www.youtube.com/watch?v=2H602-zG62w&ab_channel=Grafikart.fr">Tutoriel CSS : display: grid;</a></h3>
+                                    <div id="subInfo">
+                                        <div class="firstSubInfoLine">
+                                            <div class="chaine"><a href="https://www.youtube.com/user/grafikarttv">Grafikart.fr</a></div>
+                                            <div class="badge" aria-label="Validé" width="24" focusable="false"><span class="material-icons-sharp">check_circle</span></div>
+                                        </div>
+                                        <div class="vuetemps">
+                                            889 k vues · il y a 1 an
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+               
+                    </div>
+                
+            </div>
+
+        </div>
+
+
+    
+</body>
+</html>
